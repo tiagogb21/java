@@ -2,19 +2,29 @@ package jdbc;
 
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class ReadPeople {
+public class ReadPeopleWithCondition {
     public static void main(String[] args) throws SQLException {
-        Connection peopleConection = ConnectionFactory.getConnectionDB();
-        String querySql = "SELECT * FROM pessoas";
+        Scanner scanner = new Scanner(System.in);
 
-        Statement statement = peopleConection.createStatement();
-        ResultSet resultConnection = statement.executeQuery(querySql);
+        Connection peopleConection = ConnectionFactory.getConnectionDB();
+
+		System.out.println("Informe o nome (ou parte dele) para pesquisa:\n");
+		String choose = scanner.nextLine();
+
+        String querySql = "SELECT * FROM pessoas WHERE nome LIKE ?";
+
+        PreparedStatement statement = peopleConection.prepareStatement(querySql);
+
+        statement.setString(1, "%" + choose + "%");
+
+        ResultSet resultConnection = statement.executeQuery();
         
         List<Pessoa> people = new ArrayList<>();
 
@@ -30,5 +40,7 @@ public class ReadPeople {
 
         statement.close();
         peopleConection.close();
+
+        scanner.close();
     }
 }
