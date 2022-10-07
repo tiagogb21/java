@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Pessoa {
+public class Person {
     int code;
     String name;
 
-    public Pessoa(int code, String name) {
+    public Person(int code, String name) {
         this.code = code;
         this.name = name;
+    }
+
+    public Person(int int1, int int2) {
     }
 
     public static void main(String[] args) throws SQLException {

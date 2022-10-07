@@ -26,15 +26,15 @@ public class ReadPeopleWithCondition {
 
         ResultSet resultConnection = statement.executeQuery();
         
-        List<Pessoa> people = new ArrayList<>();
+        List<Person> people = new ArrayList<>();
 
         while(resultConnection.next()) {
             int codigo = resultConnection.getInt("codigo");
             String nome = resultConnection.getString("nome");
-            people.add(new Pessoa(codigo, nome));
+            people.add(new Person(codigo, nome));
         }
 
-        for(Pessoa p: people) {
+        for(Person p: people) {
             System.out.println(p.getCode() + " --> " + p.getName());
         }
 
